@@ -1,0 +1,68 @@
+<h4>人名一覧</h4>
+
+<div class="row">
+  <div class="col-sm-5">
+
+    <form class="form-horizontal search" role="form" ng-submit="search()">
+      <div class="form-group">
+        <label class="col-sm-2 control-label">名前</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" data-ng-model="params.name">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-2 control-label">カナ</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" data-ng-model="params.kana">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="" class="col-sm-2 control-label">種別</label>
+        <div class="col-sm-10 ">
+          <select class="form-control" multiple ng-model="params.nametype" ng-options="type as type | nametype for type in global.nameTypes" name="nametype">
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="" class="col-sm-2 control-label">言語</label>
+        <div class="col-sm-10 ">
+          <select class="form-control" multiple ng-model="params.lang" ng-options="lang as lang | langlabel for lang in global.languages" name="lang">
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10 form-footer">
+          <button type="submit" class="btn btn-success">
+            <i class="glyphicon glyphicon-search"></i> 検索</button>
+          <a data-ng-click="reset()">リセット</a>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="col-sm-7">
+
+    <p ng-hide="0 <tp.total()">
+    検索結果はありません</p>
+
+    <div ng-show="0 <tp.total()">
+    <p>全 {{tp.total()}}件</p>
+    <table ng-table="tp" class="table rowlist">
+      <tr ng-repeat="name in $data" ng-click="nav.names(name._id).view()">
+        <td data-title="'書き'" sortable="'name'">{{name.name}}</td>
+        <td data-title="'カナ'" sortable="'kana'">{{name.kana}}</td>
+        <td data-title="'言語'" sortable="'lang'">{{name.lang | langlabel}}</td>
+        <td data-title="'種別'" sortable="'nametype'">{{name.nametype | nametype}}</td>
+        <!--
+        <td data-title="'rand'" sortable="'random'">{{name.random}}</td>
+        -->
+      </tr>
+    </table>
+    <a class="btn btn-primary" data-ng-click="random()">
+      この条件からランダム
+    </a>
+    <a class="btn btn-danger" data-ng-click="remove()" confirm="本当に削除しますか？">
+      <i class="glyphicon glyphicon-trash"></i> この内容を全削除
+    </a>
+  </div>
+</div>
