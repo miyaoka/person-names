@@ -1,0 +1,48 @@
+<h4>人名：{{orig_name.name}}</h4>
+
+<div class="clearfix">
+  <a class="btn btn-danger pull-right" data-ng-click="remove()">
+    <i class="glyphicon glyphicon-trash"></i> 削除
+  </a>
+</div>
+<br>
+<br>
+
+
+<form class="form-horizontal" role="form" data-ng-submit="update()" name="form" novalidate>
+  <div class="form-group">
+    <label for="" class="col-md-3 control-label">種別</label>
+    <div class="col-md-9 ">
+      <select class="form-control" ng-model="name.nametype" ng-options="type as type | nametype for type in global.nameTypes" name="nametype" required>
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="" class="col-md-3 control-label">言語</label>
+    <div class="col-md-9 ">
+      <select class="form-control" ng-model="name.lang" ng-options="lang as lang | langlabel for lang in global.languages" name="lang" required>
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="" class="col-md-3 control-label">カナ</label>
+    <div class="col-md-9 ">
+      <input type="text" class="form-control" data-ng-model="name.kana" id="kana">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="" class="col-md-3 control-label">名</label>
+    <div class="col-md-9 ">
+      <input type="text" class="form-control" data-ng-model="name.name" id="name" required>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-md-offset-3 col-md-9 form-footer">
+      <button type="submit" class="btn" ng-class="{'btn-success': form.$valid}" ng-disabled="form.$invalid">
+        <i class="glyphicon glyphicon-ok" ng-show="form.$valid"></i> この内容で更新
+      </button>
+      <a data-ng-click="reset()">リセット</a>
+    </div>
+  </div>
+</form>
