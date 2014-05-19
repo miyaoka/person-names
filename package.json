@@ -14,7 +14,8 @@
     "lodash": "~2.4.1",
     "mongoose": "~3.8.8",
     "ejs": "~0.8.4",
-    "scraper": "0.0.9"
+    "scraper": "0.0.9",
+    "connect-wwwhisper": "*"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
