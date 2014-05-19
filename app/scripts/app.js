@@ -11,8 +11,7 @@ angular.module('personNamesApp', [
   .config(function ($routeProvider, $locationProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'partials/main',
-        controller: 'MainCtrl'
+        redirectTo: '/names/'
       })
       .when('/names/', {
         templateUrl: 'partials/names/list',
