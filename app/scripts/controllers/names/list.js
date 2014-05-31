@@ -2,7 +2,7 @@
 
 angular.module('personNamesApp')
   .controller('NamesListCtrl', function ($scope, Names, RandomNames, TableFactory) {
-    $scope.tp = new TableFactory.sortable();
+    $scope.tp = TableFactory.sortable({});
     $scope.tp.settings({
       counts : [10, 100, 1000, 10000, 1000000]
     });

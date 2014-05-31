@@ -1,9 +1,91 @@
 <h4>ランダム</h4>
 
-<a class="btn btn-primary" data-ng-click="update()">
+<a class="btn btn-primary" data-ng-click="update()" confirm>
   ランダムkey付与
 </a>
+<hr>
 
-<a class="btn btn-primary" data-ng-click="find()">
-  ランダムget
-</a>
+
+
+<form class="form-horizontal" role="form" data-ng-submit="find()" name="form" novalidate>
+  <div class="form-group">
+    <label for="" class="col-sm-2 control-label">種別</label>
+    <div class="col-sm-10 ">
+      <select class="form-control" multiple ng-model="firstNameParams.nametype" ng-options="type as type | nametype for type in global.nameTypes.slice(1)" name="nametype">
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="" class="col-sm-2 control-label">言語</label>
+    <div class="row col-sm-10">
+      <div class="col-sm-6">
+        名前
+        <select class="form-control selectlangs" multiple ng-model="firstNameParams.lang" ng-options="lang as lang | langlabel for lang in global.languages" name="lang">
+        </select>
+      </div>
+      <div class="col-sm-6">
+        苗字
+        <select class="form-control selectlangs" multiple ng-model="familyNameParams.lang" ng-options="lang as lang | langlabel for lang in global.languages" name="lang">
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-md-offset-3 col-md-9 form-footer">
+      <button type="submit" class="btn" ng-class="{'btn-success': form.$valid}" ng-disabled="form.$invalid">
+        <i class="glyphicon glyphicon-ok" ng-show="form.$valid"></i> この内容でランダム取得
+      </button>
+    </div>
+  </div>
+</form>
+
+<input type="checkbox" ng-model="showKana"/>
+<input type="checkbox" ng-model="showWrite"/>
+
+<div ng-show="0 <tp.total()">
+<p>全 {{tp.total()}}件</p>
+<table ng-table="tp" class="table rowlist">
+  <tr ng-repeat="n in $data">
+    <td data-title="'名前'" class="name text-right">
+      <span ng-show="!showKana && showWrite">
+        {{n.firstname.name}}
+      </span>
+      <span ng-show="showKana && !showWrite">
+        {{n.firstname.kana}}
+      </span>
+      <span ng-show="showKana && showWrite">
+        <ruby>
+          <rb>{{n.firstname.name}}</rb>
+          <rp>（</rp>
+          <rt>{{n.firstname.kana}}</rt>
+          <rp>）</rp>
+        </ruby>
+      </span>
+      <span ng-show="!showKana && !showWrite">
+        <ruby>
+          <rb>{{n.firstname.kana}}</rb>
+          <rp>（</rp>
+          <rt>{{n.firstname.name}}</rt>
+          <rp>）</rp>
+        </ruby>
+      </span>
+    </td>
+    <td data-title="'苗字'" class="name text-left">
+      <span ng-show="kanaonly">
+        {{n.familyname.kana}}
+      </span>
+      <span ng-hide="kanaonly">
+      <ruby>
+        <rb>{{n.familyname.name}}</rb>
+        <rp>（</rp>
+        <rt>{{n.familyname.kana}}</rt>
+        <rp>）</rp>
+      </ruby>
+      </span>
+    </td>
+    <td data-title="'性別'" sortable="'nametype'">{{n.firstname.nametype | nametype}}</td>
+    <td data-title="'名前言語'" >{{n.firstname.lang | langlabel}}</td>
+    <td data-title="'苗字言語'" sortable="'lang'">{{n.familyname.lang | langlabel}}</td>
+  </tr>
+</table>
